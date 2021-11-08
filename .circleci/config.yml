@@ -1,77 +1,12 @@
 version: 2.1
 
-executors:
-  linux:
-    docker:
-      - image: cimg/go:1.13-browsers
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-
-orbs:
-  node: circleci/node@2.1.0   
-
 jobs:
-  test:
-    parameters:
-      node-version:
-        type: string
-    executor: linux
+  build:
+    parallelism: 15
+    machine:
+      image: ubuntu-2004:202101-01
     steps:
       - checkout
-      - node/install:
-          node-version: << parameters.node-version >>
       - run : |
                chmod +x echo.sh
                ./echo.sh
-workflows:
-  all-test:
-    jobs:
-      - test:
-          name: "test-10.9.0"
-          node-version: 10.9.0
-      - test:
-          name: "test-11.9.0"
-          node-version: 11.9.0
-      - test:
-          name: "test-12.9.0"
-          node-version: 12.9.0
-      - test:
-          name: "test-13.9.0"
-          node-version: 13.9.0
-      - test:
-          name: "test-14.9.0"
-          node-version: 14.9.0
-      - test:
-          name: "test-15.9.0"
-          node-version: 15.9.0
-      - test:
-          name: "test-16.9.0"
-          node-version: 16.9.0
-      - test:
-          name: "test-17.9.0"
-          node-version: 17.9.0
-      - test:
-          name: "test-18.9.0"
-          node-version: 18.9.0
-      - test:
-          name: "test-19.9.0"
-          node-version: 19.9.0
-      - test:
-          name: "test-110.9.0"
-          node-version: 110.9.0
-      - test:
-          name: "test-111.9.0"
-          node-version: 111.9.0
-      - test:
-          name: "test-112.9.0"
-          node-version: 112.9.0
-      - test:
-          name: "test-113.9.0"
-          node-version: 113.9.0
-      - test:
-          name: "test-114.9.0"
-          node-version: 114.9.0
-      - test:
-          name: "test-115.9.0"
-          node-version: 115.9.0
